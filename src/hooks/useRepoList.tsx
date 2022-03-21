@@ -8,7 +8,7 @@ export const useRepoList = ( searchString: string, perPage?:number ) => {
 	const repoPage = useRecoilValue(repoPageState)
 
 	const { data, error } = useSWR(
-		`${process.env.REACT_APP_BASE_URL}/search/repositories?q=${searchString}
+		searchString && `${process.env.REACT_APP_BASE_URL}/search/repositories?q=${searchString}
 		&per_page=${perPage ? perPage : 10}&page=${repoPage}`,
 		fetcher
 	)

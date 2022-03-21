@@ -14,3 +14,8 @@ export const registRepoListState = atom({
 	key: 'registRepoList',
 	default: window.sessionStorage.getItem('registRepoList') || [],
 })
+
+export const searchWordState = atom({
+	key: 'searchWord',
+	default: '',
+})

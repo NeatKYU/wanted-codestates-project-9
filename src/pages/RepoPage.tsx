@@ -1,5 +1,9 @@
-import { useRepoList } from '@hooks/useRepoList';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
+
+import { useRepoList } from '@hooks/useRepoList';
+import { SearchInput } from '@components/search/SearchInput';
+import { searchWordState } from '@atom/repoAtom';
 
 interface RepoPageProps {
 
@@ -7,12 +11,13 @@ interface RepoPageProps {
 
 function RepoPage() {
 
-	const { repoList } = useRepoList('react');
-
-	console.log(repoList)
+	const searchWord = useRecoilValue(searchWordState);
+	// const { repoList } = useRepoList(searchWord);
 
 	return (
 		<div>
+			<SearchInput/>
+			?
 		</div>
 	)
 }
