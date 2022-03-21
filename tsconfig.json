@@ -24,5 +24,6 @@
   "include": [
     "src",
     "tsconfig.paths.json",
+    "custom.d.ts"
   ]
 }

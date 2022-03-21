@@ -21,6 +21,21 @@ time, mark, audio, video {
   font: inherit;
   vertical-align: baseline;
 }
+.flex-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.flex-align-center {
+	display: flex;
+	align-items: center;
+}
+
+.flex-justify-center {
+	display: flex;
+	justify-content: center;
+}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
