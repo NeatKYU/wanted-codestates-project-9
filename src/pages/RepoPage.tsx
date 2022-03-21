@@ -16,10 +16,16 @@ function RepoPage() {
 
 	return (
 		<div>
-			<SearchInput/>
-			?
+			<InputWrapper>
+				<SearchInput/>
+			</InputWrapper>
 		</div>
 	)
 }
 
 export default RepoPage;
+
+const InputWrapper = styled.div`
+	width: 100%;
+	margin-top: 20px;
+`
