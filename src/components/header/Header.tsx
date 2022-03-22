@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack } from 'react-icons/io';
 
 import { Logo } from '@components/header/Logo';
+import { RegistCard } from '@components/regist-card/RegistCard';
 
 interface HeaderProps{
 	headerList: Array<string>,
@@ -37,6 +38,15 @@ export const Header = (props: HeaderProps) => {
 							{item}
 						</Menu>
 					))
+				}
+				{
+					isActive === 1 &&
+					<>
+						<RegistCard/>
+						<RegistCard/>
+						<RegistCard/>
+						<RegistCard/>
+					</>
 				}
 			</Content>
 		</Container>

@@ -12,7 +12,9 @@ interface RepoPageProps {
 function RepoPage() {
 
 	const searchWord = useRecoilValue(searchWordState);
-	// const { repoList } = useRepoList(searchWord);
+	const { repoList } = useRepoList(searchWord);
+
+	console.log(repoList)
 
 	return (
 		<div>
