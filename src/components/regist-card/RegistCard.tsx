@@ -10,7 +10,9 @@ interface RegistCardProps {
 	lang: string,
 }
 
-export const RegistCard = () => {
+export const RegistCard = (props: RegistCardProps) => {
+
+	const { title, avatarUrl, stargazersCount, lang } = props;
 
 	return (
 		<Container className='flex-justify-center'>
@@ -19,15 +21,15 @@ export const RegistCard = () => {
 			</CloseWrapper>
 			<Title>
 				<div className='title'>repo name</div>
-				<span>typescript-cheatsheets/reacta asldl alsdkfa;l afalksjd;as aslfkja</span>
+				<span>{title}</span>
 			</Title>
 			<Contents>
 				<div className='avatar-section flex-center'>
-					<Avatar image={'https://avatars.githubusercontent.com/u/101206176?v=4'}/>
+					<Avatar image={avatarUrl}/>
 				</div>
 				<div className='star-lang-section flex-center'>
-					<div><TiStarOutline/>2.4k</div>
-					<div>javascript</div>
+					<div><TiStarOutline/>{stargazersCount}</div>
+					<div>{lang}</div>
 				</div>
 			</Contents>
 		</Container>

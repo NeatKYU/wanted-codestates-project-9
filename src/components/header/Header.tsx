@@ -42,10 +42,18 @@ export const Header = (props: HeaderProps) => {
 				{
 					isActive === 1 &&
 					<>
-						<RegistCard/>
-						<RegistCard/>
-						<RegistCard/>
-						<RegistCard/>
+						<RegistCard 
+							title='typescirpt/react' 
+							avatarUrl='https://avatars.githubusercontent.com/u/50188264?v=4'
+							lang='javascript'
+							stargazersCount={10000}
+						/>
+						<RegistCard 
+							title='typescirpt/react' 
+							avatarUrl='https://avatars.githubusercontent.com/u/50188264?v=4'
+							lang='javascript'
+							stargazersCount={10000}
+						/>
 					</>
 				}
 			</Content>
