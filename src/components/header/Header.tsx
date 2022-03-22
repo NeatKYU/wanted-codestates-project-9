@@ -30,6 +30,7 @@ export const Header = (props: HeaderProps) => {
 					headerList && 
 					headerList.map((item, index) => (
 						<Menu
+							key={index}
 							className='flex-center'
 							active={isActive === index ? true : false}
 							onClick={() => handleClick(item, index)}
