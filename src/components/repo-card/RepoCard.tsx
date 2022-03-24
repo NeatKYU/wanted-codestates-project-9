@@ -39,7 +39,7 @@ export const RepoCard = (props: RepoCardProps) => {
 	
 	const [registRepoList, setRegistRepoList] = useRecoilState(registRepoListState)
 
-	const handleRegistRepo = () => {
+	const handleRegistRepo = (mapTitle:string) => {
 		if(registRepoList.length < 4){
 			setToastList('등록되었습니다.', true);
 			if(registRepoList.length === 0){
@@ -50,13 +50,22 @@ export const RepoCard = (props: RepoCardProps) => {
 					lang: lang,
 				}])
 			} else {
-				setRegistRepoList([...registRepoList, {
-					title: title,
-					avatarUrl: avatarUrl,
-					starCount: starCount,
-					lang: lang,
+				let check = true;
+				registRepoList.map((item: any) => {
+					if(item.title === mapTitle) {
+						setToastList('이미 등록되어있습니다.', false);
+						check = false;
 					}
-				])
+				})
+				if(check){
+					setRegistRepoList([...registRepoList, {
+						title: title,
+						avatarUrl: avatarUrl,
+						starCount: starCount,
+						lang: lang,
+						}
+					])
+				}
 			}
 		} else {
 			setToastList('스토리지 초과입니다.', false);
@@ -110,7 +119,7 @@ export const RepoCard = (props: RepoCardProps) => {
 						{
 							type === 'repo' &&
 							<CustomButton 
-								onClick={handleRegistRepo}
+								onClick={() => handleRegistRepo(title)}
 								backgroundColor={'#aab6fe'}
 								title={'등록'}
 							/>

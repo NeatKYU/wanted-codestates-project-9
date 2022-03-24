@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack } from 'react-icons/io';

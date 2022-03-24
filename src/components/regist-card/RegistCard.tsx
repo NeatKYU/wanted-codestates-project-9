@@ -18,7 +18,7 @@ interface RegistCardProps {
 export const RegistCard = (props: RegistCardProps) => {
 
 	const { title, avatarUrl, stargazersCount, lang } = props;
-	const setOwner = useSetRecoilState(ownerState);
+	const [owner, setOwner] = useRecoilState(ownerState);
 	const setIssuePage = useSetRecoilState(issuePageState);
 	const setToastList = useToastState();
 	const [registRepoList, setRegistRepoList] = useRecoilState(registRepoListState);
@@ -45,6 +45,7 @@ export const RegistCard = (props: RegistCardProps) => {
 		<Container 
 			className='flex-justify-center'
 			onClick={() => handleGetIssueList(title)}
+			selected={owner === title ? true : false}
 		>
 			<CloseWrapper onClick={(e) => handleDeleteRepo(e, title)}>
 				<IoMdClose/>
@@ -66,7 +67,7 @@ export const RegistCard = (props: RegistCardProps) => {
 	)
 }
 
-const Container = styled.div`
+const Container = styled.div<{selected: boolean}>`
 	width: 11.5rem;
 	height: 6.5rem;
 	border-radius: 10px;
@@ -74,6 +75,7 @@ const Container = styled.div`
 	position: relative;
 	flex-direction: column;
 	padding: 15px 10px 10px 10px;
+	background-color: ${({selected}) => selected ? '#aab6fe' : '#fff'};
 
 	&:hover {
 		box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
