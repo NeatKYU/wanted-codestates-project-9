@@ -7,7 +7,8 @@
 			"@hooks/*": ["src/hooks/*"],
 			"@pages/*": ["src/pages/*"],
 			"@util/*": ["src/util/*"],
-			"@atom/*": ["src/atom/*"]
+			"@atom/*": ["src/atom/*"],
+      "@model/*": ["src/model/*"]
     }
   }
 }

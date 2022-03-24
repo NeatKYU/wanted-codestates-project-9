@@ -6,6 +6,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import { issuePageState, ownerState } from '@atom/issueAtom';
 import React from 'react';
 import { registRepoListState } from '@atom/repoAtom';
+import { useToastState } from '@hooks/useToast';
 
 interface RegistCardProps {
 	title: string,
@@ -18,7 +19,8 @@ export const RegistCard = (props: RegistCardProps) => {
 
 	const { title, avatarUrl, stargazersCount, lang } = props;
 	const setOwner = useSetRecoilState(ownerState);
-	const setIssuePage = useSetRecoilState(issuePageState)
+	const setIssuePage = useSetRecoilState(issuePageState);
+	const setToastList = useToastState();
 	const [registRepoList, setRegistRepoList] = useRecoilState(registRepoListState);
 
 	const handleGetIssueList = (owner: string) => {
@@ -36,6 +38,7 @@ export const RegistCard = (props: RegistCardProps) => {
 				(item:any) => item.title !== title
 			))
 		)
+		setToastList('삭제 되었습니다.', true);
 	}
 
 	return (

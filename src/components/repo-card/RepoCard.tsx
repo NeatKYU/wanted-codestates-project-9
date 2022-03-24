@@ -1,12 +1,13 @@
+import { useEffect } from 'react';
 import styled from 'styled-components';
+import { useRecoilState } from 'recoil';
 import { TiStarOutline } from 'react-icons/ti';
 import { AiOutlineCloseCircle, AiOutlineExclamationCircle } from 'react-icons/ai';
-import { useRecoilState } from 'recoil';
 
 import { Avatar } from '@components/avatar/Avatar';
 import { CustomButton } from '@components/button/CustomButton';
 import { registRepoListState } from '@atom/repoAtom';
-import { useEffect } from 'react';
+
 
 interface RepoCardProps {
 	title: string,
@@ -17,7 +18,8 @@ interface RepoCardProps {
 	lang?: string,
 	labels?: [],
 	htmlUrl: string,
-	type: 'repo' | 'issue'
+	type: 'repo' | 'issue',
+	setToastList: any,
 }
 
 export const RepoCard = (props: RepoCardProps) => {
@@ -32,13 +34,15 @@ export const RepoCard = (props: RepoCardProps) => {
 		htmlUrl,
 		type,
 		labels,
+		setToastList,
 	} = props;
 	
 	const [registRepoList, setRegistRepoList] = useRecoilState(registRepoListState)
 
 	const handleRegistRepo = () => {
 		if(registRepoList.length < 4){
-			if(!registRepoList[0].title){
+			setToastList('등록되었습니다.', true);
+			if(registRepoList.length === 0){
 				setRegistRepoList([{
 					title: title,
 					avatarUrl: avatarUrl,
@@ -55,7 +59,7 @@ export const RepoCard = (props: RepoCardProps) => {
 				])
 			}
 		} else {
-			alert('꽉참')
+			setToastList('스토리지 초과입니다.', false);
 		}
 	}
 

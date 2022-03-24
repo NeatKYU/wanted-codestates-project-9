@@ -10,10 +10,12 @@ import { Pagination } from '@components/pagination/Pagination';
 import { Loading } from '@components/loading/Loading';
 
 interface RepoPageProps {
-
+	setToastList: any,
 }
 
-function RepoPage() {
+function RepoPage( props: RepoPageProps ) {
+	
+	const { setToastList } = props;
 
 	const searchWord = useRecoilValue(searchWordState);
 	const setRepoPage = useSetRecoilState(repoPageState);
@@ -43,6 +45,7 @@ function RepoPage() {
 						avatarUrl={item.owner.avatar_url}
 						htmlUrl={item.html_url}
 						type={'repo'}
+						setToastList={setToastList}
 					/>
 				))}
 				{ repoLoading && <Loading/> }

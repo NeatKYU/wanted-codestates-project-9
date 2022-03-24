@@ -1,7 +1,7 @@
 import { issuePageState, ownerState } from '@atom/issueAtom';
 import { useIssueList } from '@hooks/useIssueList';
 import { useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
 import { Pagination } from '@components/pagination/Pagination';
@@ -9,10 +9,12 @@ import { RepoCard } from '@components/repo-card/RepoCard';
 import { Loading } from '@components/loading/Loading';
 
 interface IssuePageProps {
-
+	setToastList: any,
 }
 
-function IssuePage() {
+function IssuePage(props: IssuePageProps) {
+
+	const { setToastList } = props;
 
 	const currentOwner = useRecoilValue(ownerState)
 	const [issuePage, setIssuePage] = useRecoilState(issuePageState);
@@ -39,6 +41,7 @@ function IssuePage() {
 							avatarUrl={item.user.avatar_url}
 							htmlUrl={item.html_url}
 							type={'issue'}
+							setToastList={setToastList}
 						/>
 					))}
 			{ issueLoading && <Loading/> }

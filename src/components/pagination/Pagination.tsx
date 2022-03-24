@@ -35,7 +35,6 @@ export const Pagination = (props: PaginationProps) => {
 		pageArray.push(i)
 	}
 
-	console.log(totalPage, currentPage, startPage, endPage)
 
 	const handleNextPerPage = () => {
 		if(!loading){

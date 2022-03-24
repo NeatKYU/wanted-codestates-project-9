@@ -4,13 +4,19 @@ import GlobalStyle from './GlobalStyle';
 import styled from 'styled-components';
 import { Header } from '@components/header/Header';
 import { headerList } from '@components/header/headerList';
+import { ToastList } from '@components/toast/ToastList';
+import { useToastState } from '@hooks/useToast';
 
 function App() {
+
+  const setToastList = useToastState();
+
   return (
     <div className="App">
       <GlobalStyle/>
+      <ToastList/>
       <Container className='flex-center'>
-        <Routes/>
+        <Routes setToastList={setToastList}/>
         <Header headerList={headerList}/>
       </Container>
     </div>
