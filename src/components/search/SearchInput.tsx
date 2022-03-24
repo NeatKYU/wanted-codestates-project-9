@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
 
@@ -9,8 +9,8 @@ import { useEffect } from 'react';
 
 export const SearchInput = () => {
 	
-	const [inputValue, setInputValue] = useState('');
-	const setSearchWord = useSetRecoilState(searchWordState);
+	const [searchWord, setSearchWord] = useRecoilState(searchWordState);
+	const [inputValue, setInputValue] = useState(searchWord);
 	const debounceInput = useDebounce(inputValue, 700);
 
 	const handleInputValue = (e: React.ChangeEvent<HTMLInputElement>) => {

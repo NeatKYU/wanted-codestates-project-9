@@ -2,6 +2,10 @@ import styled from 'styled-components';
 import { IoMdClose } from 'react-icons/io';
 import { TiStarOutline } from 'react-icons/ti';
 import { Avatar } from '@components/avatar/Avatar';
+import { useRecoilState, useSetRecoilState } from 'recoil';
+import { issuePageState, ownerState } from '@atom/issueAtom';
+import React from 'react';
+import { registRepoListState } from '@atom/repoAtom';
 
 interface RegistCardProps {
 	title: string,
@@ -13,10 +17,33 @@ interface RegistCardProps {
 export const RegistCard = (props: RegistCardProps) => {
 
 	const { title, avatarUrl, stargazersCount, lang } = props;
+	const setOwner = useSetRecoilState(ownerState);
+	const setIssuePage = useSetRecoilState(issuePageState)
+	const [registRepoList, setRegistRepoList] = useRecoilState(registRepoListState);
+
+	const handleGetIssueList = (owner: string) => {
+		setOwner(owner);
+		setIssuePage(1);
+	}
+
+	const handleDeleteRepo = (e: React.MouseEvent, title:string) => {
+		e.stopPropagation();
+		setRegistRepoList(registRepoList
+			.filter((item:any) => item.title !== title)
+		)
+		window.sessionStorage.setItem('registRepoList',
+			JSON.stringify(registRepoList.filter(
+				(item:any) => item.title !== title
+			))
+		)
+	}
 
 	return (
-		<Container className='flex-justify-center'>
-			<CloseWrapper>
+		<Container 
+			className='flex-justify-center'
+			onClick={() => handleGetIssueList(title)}
+		>
+			<CloseWrapper onClick={(e) => handleDeleteRepo(e, title)}>
 				<IoMdClose/>
 			</CloseWrapper>
 			<Title>
@@ -38,7 +65,7 @@ export const RegistCard = (props: RegistCardProps) => {
 
 const Container = styled.div`
 	width: 11.5rem;
-	height: 7rem;
+	height: 6.5rem;
 	border-radius: 10px;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 	position: relative;
@@ -52,7 +79,7 @@ const Container = styled.div`
 
 	@keyframes show {
 		from { height: 0; opacity: 0; }
-		to { height: 7rem; opacity: 1; }
+		to { height: 6.5rem; opacity: 1; }
 	}
 
 	animation: show 1s;
@@ -63,6 +90,7 @@ const CloseWrapper = styled.div`
 	top: 0.5em;
 	right: 0.5em;
 	cursor: pointer;
+	z-index: 999;
 `
 
 const Title = styled.div`

@@ -5,6 +5,7 @@ interface CustomButtonProps {
 	buttonHeight?: string,
 	backgroundColor?: string,
 	title?: string,
+	icon?: any,
 	onClick: () => void,
 }
 
@@ -15,6 +16,7 @@ export const CustomButton = (props: CustomButtonProps) => {
 		buttonWidth,
 		backgroundColor,
 		title,
+		icon,
 		onClick,
 	} = props;
 
@@ -27,6 +29,7 @@ export const CustomButton = (props: CustomButtonProps) => {
 			onClick={onClick}
 		>
 			{title}
+			{icon}
 		</Container>
 	)
 }

@@ -1,16 +1,23 @@
 import styled from 'styled-components';
 import { TiStarOutline } from 'react-icons/ti';
+import { AiOutlineCloseCircle, AiOutlineExclamationCircle } from 'react-icons/ai';
+import { useRecoilState } from 'recoil';
 
 import { Avatar } from '@components/avatar/Avatar';
 import { CustomButton } from '@components/button/CustomButton';
+import { registRepoListState } from '@atom/repoAtom';
+import { useEffect } from 'react';
 
 interface RepoCardProps {
-	title?: string,
-	avatarUrl?: string,
+	title: string,
+	avatarUrl: string,
 	starCount?: string,
-	description?: string,
+	state?: string,
+	description: string,
 	lang?: string,
-	htmlUrl?: string,
+	labels?: [],
+	htmlUrl: string,
+	type: 'repo' | 'issue'
 }
 
 export const RepoCard = (props: RepoCardProps) => {
@@ -19,35 +26,91 @@ export const RepoCard = (props: RepoCardProps) => {
 		title, 
 		avatarUrl, 
 		starCount, 
+		state,
 		description, 
 		lang, 
-		htmlUrl 
+		htmlUrl,
+		type,
+		labels,
 	} = props;
+	
+	const [registRepoList, setRegistRepoList] = useRecoilState(registRepoListState)
+
+	const handleRegistRepo = () => {
+		if(registRepoList.length < 4){
+			if(!registRepoList[0].title){
+				setRegistRepoList([{
+					title: title,
+					avatarUrl: avatarUrl,
+					starCount: starCount,
+					lang: lang,
+				}])
+			} else {
+				setRegistRepoList([...registRepoList, {
+					title: title,
+					avatarUrl: avatarUrl,
+					starCount: starCount,
+					lang: lang,
+					}
+				])
+			}
+		} else {
+			alert('꽉참')
+		}
+	}
+
+	useEffect(() => {
+		window.sessionStorage.setItem('registRepoList', JSON.stringify(registRepoList))
+	}, [registRepoList])
 
 	return(
 		<Container className='flex-center'>
-			<ImageSection>
-				<Avatar image={'https://avatars.githubusercontent.com/u/50188264?v=4'}/>
+			<ImageSection className='flex-center'>
+				<Avatar image={avatarUrl}/>
 			</ImageSection>
 			<ContentsSection>
 				<TitleSection>
-					<span>typescript/react</span>
-					<div>Cheatsheets for experienced React developers getting started with TypeScript asdf asdf asdf asdfasd fasdf asdfa sdfasd fasdf asdfasdfa sdf asdf asdf</div>
+					<span>{title}</span>
+					<div>{description}</div>
 				</TitleSection>
 				<BottomSection className='flex-align-center'>
-					<span><TiStarOutline/>star</span>
-					<span>lang</span>
+					{
+						type === 'repo' &&
+						<>
+							<span><TiStarOutline/>{starCount}</span>
+							<span>{lang}</span>
+						</>
+					}
+					{
+						type === 'issue' &&
+						<>
+							<span>
+								{state === 'closed' ? 
+								<AiOutlineCloseCircle/> 
+								: <AiOutlineExclamationCircle/>}
+								{state}
+							</span>
+							{
+								labels?.map((item:any) => (
+									<Label color={item.color}>{item.name.split(':')[1]}</Label>
+								))
+							}
+						</>
+					}
 					<ButtonGroup className='flex-center'>
 						<CustomButton 
-							onClick={() => console.log('hi')}
+							onClick={() => window.open(htmlUrl, '_brank')}
 							backgroundColor={'#5870cb'}
 							title={'이동'}
 						/>
-						<CustomButton 
-							onClick={() => console.log('hi')}
-							backgroundColor={'#aab6fe'}
-							title={'등록'}
-						/>
+						{
+							type === 'repo' &&
+							<CustomButton 
+								onClick={handleRegistRepo}
+								backgroundColor={'#aab6fe'}
+								title={'등록'}
+							/>
+						}
 					</ButtonGroup>
 				</BottomSection>
 			</ContentsSection>
@@ -56,11 +119,11 @@ export const RepoCard = (props: RepoCardProps) => {
 }
 
 const Container = styled.div`
-	width: 40rem;
-	height: 6.25rem;
+	width: 45rem;
+	min-height: 5.25rem;
+	height: auto;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding: 10px;
 	border-radius: 1rem;
 `
 
@@ -69,9 +132,10 @@ const ImageSection = styled.div`
 `
 
 const ContentsSection = styled.div`
-	width: 90%;
+	width: 85%;
 	display: flex;
 	flex-direction: column;
+	padding-left: 10px;
 	gap: .5rem;
 `
 const TitleSection = styled.div`
@@ -85,9 +149,27 @@ const TitleSection = styled.div`
 `
 const BottomSection = styled.div`
 	width: 100%;
-	justify-content: space-around;
+	
+	span {
+		display: flex;
+		align-items: center;
+		margin-right: 1rem;
+		svg {
+			margin-right: 10px;
+		}
+	}
+`
+
+const Label = styled.div<{color: string}>`
+	display: flex;
+	align-items: center;
+	width: auto;
+	margin-right: 4px;
+	border-radius: 1rem;
+	background-color: ${({color}) => "#"+color};
 `
 
 const ButtonGroup = styled.div`
 	gap: 5px;
+	margin-left: auto;
 `

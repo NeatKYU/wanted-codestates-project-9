@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom'
 import { IoIosArrowBack } from 'react-icons/io';
 
 import { Logo } from '@components/header/Logo';
 import { RegistCard } from '@components/regist-card/RegistCard';
+import { registRepoListState } from '@atom/repoAtom';
 
 interface HeaderProps{
 	headerList: Array<string>,
@@ -14,6 +16,7 @@ export const Header = (props: HeaderProps) => {
 
 	const { headerList } = props;
 	const [isActive, setIsActive] = useState(0);
+	const registRepoList = useRecoilValue(registRepoListState);
 	const history = useNavigate();
 
 	const handleClick = ( item:string, index:number ) => {
@@ -42,20 +45,16 @@ export const Header = (props: HeaderProps) => {
 				}
 				{
 					isActive === 1 &&
-					<>
+					registRepoList &&
+					registRepoList.map((item: any, index:number) => (
 						<RegistCard 
-							title='typescirpt/react' 
-							avatarUrl='https://avatars.githubusercontent.com/u/50188264?v=4'
-							lang='javascript'
-							stargazersCount={10000}
+							key={index}
+							title={item.title}
+							avatarUrl={item.avatarUrl}
+							lang={item.lang}
+							stargazersCount={item.starCount}
 						/>
-						<RegistCard 
-							title='typescirpt/react' 
-							avatarUrl='https://avatars.githubusercontent.com/u/50188264?v=4'
-							lang='javascript'
-							stargazersCount={10000}
-						/>
-					</>
+					))
 				}
 			</Content>
 		</Container>
