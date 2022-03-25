@@ -9,7 +9,7 @@ export const useRepoList = ( searchString: string, perPage?:number ) => {
 
 	const { data, error } = useSWR(
 		searchString && `${process.env.REACT_APP_BASE_URL}/search/repositories?q=${searchString}
-		&per_page=${perPage ? perPage : 10}&page=${repoPage}`,
+		&per_page=${perPage ? perPage : 10}&page=${repoPage}&sort=stars`,
 		fetcher,
 		{
 			focusThrottleInterval: 3000,

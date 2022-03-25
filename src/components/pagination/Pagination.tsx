@@ -25,9 +25,17 @@ export const Pagination = (props: PaginationProps) => {
 
 	useEffect(() => {
 		if(totalPage !== 0){
-			setEndPage(endPage === 0 ? showPage : totalPage > showPage ? endPage : totalPage)
+			if(currentPage === 1){
+				setStartPage(1);
+				setEndPage(totalPage > showPage ? showPage : totalPage);
+			} else {
+				setEndPage(endPage === 0 ? showPage : totalPage > showPage ? endPage > showPage ? endPage : showPage : totalPage)
+			}
 		} else if(startPage > endPage){
 			setEndPage(startPage + 4);
+		} else if(totalCount === 0) {
+			setStartPage(1);
+			setEndPage(0);
 		}
 	}, [totalPage])
 
@@ -42,7 +50,7 @@ export const Pagination = (props: PaginationProps) => {
 			setStartPage(calcStart);
 			setCurrentPage(calcStart);
 			setGoPage(calcStart);
-			if(totalPage - endPage*2 > 0){
+			if(totalPage - endPage > showPage){
 				setEndPage(endPage + showPage);
 			} else {
 				setEndPage(totalPage)
@@ -52,7 +60,6 @@ export const Pagination = (props: PaginationProps) => {
 
 	const handlePrevPerPage = () => {
 		if(!loading){
-			setStartPage(startPage - showPage);
 			if(endPage === totalPage){
 				const calcEndPage = startPage - 1;
 				setEndPage(calcEndPage);
@@ -64,6 +71,7 @@ export const Pagination = (props: PaginationProps) => {
 				setEndPage(calcEndPage);
 				setGoPage(calcEndPage);
 			}
+			setStartPage(startPage - showPage);
 		}
 	}
 
@@ -119,7 +127,7 @@ const PagiButton = styled.div<{select: boolean}>`
 	width: 2rem;
 	height: 2rem;
 	box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-	background-color: ${({select}) => select ? '#aab6fe' : '#e6e6e6'};
+	background-color: ${({select}) => select ? '#aab6fe' : '#f3f3f3'};
 	font-size: 1.2rem;
 	border-radius: 2px;
 	cursor: pointer;

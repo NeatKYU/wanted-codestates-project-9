@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom'
@@ -7,6 +6,7 @@ import { IoIosArrowBack } from 'react-icons/io';
 import { Logo } from '@components/header/Logo';
 import { RegistCard } from '@components/regist-card/RegistCard';
 import { registRepoListState } from '@atom/repoAtom';
+import { isActiveState } from '@atom/isActiveAtom';
 
 interface HeaderProps{
 	headerList: Array<string>,
@@ -15,15 +15,16 @@ interface HeaderProps{
 export const Header = (props: HeaderProps) => {
 
 	const { headerList } = props;
-	const [isActive, setIsActive] = useState(0);
+	const [isActive, setIsActive] = useRecoilState(isActiveState);
 	const registRepoList = useRecoilValue(registRepoListState);
 	const history = useNavigate();
 
 	const handleClick = ( item:string, index:number ) => {
 		setIsActive(index)
+		window.sessionStorage.setItem('isActive', index.toString())
 		history(`/${item === 'Repo' ? '' : item}`);
 	}
-	
+
 	return (
 		<Container className='flex-justify-center'>
 			<Content className='flex-align-center'>

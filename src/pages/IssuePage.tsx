@@ -29,11 +29,11 @@ function IssuePage(props: IssuePageProps) {
 
 	return (
 		<Container>
-			<SizeBox/>
+			<Header className='flex-center'>Issues</Header>
 			<CardWrpper className='flex-center'>
-				{ issueList && issueList.map((item:any, index:number) => (
+				{ issueList && issueList.map((item:any) => (
 						<RepoCard
-							key={index}
+							key={item.title}
 							description={item.title}
 							labels={item.labels}
 							state={item.state}
@@ -72,6 +72,12 @@ const CardWrpper = styled.div`
 	height: auto;
 	flex-direction: column;
 	gap: 1.2rem;
+`
+
+const Header = styled.div`
+	width: 100%;
+	height: 5rem;
+	font-size: 2rem;
 `
 
 const SizeBox = styled.div`
