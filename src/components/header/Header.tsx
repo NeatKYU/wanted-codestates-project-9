@@ -46,7 +46,7 @@ export const Header = (props: HeaderProps) => {
 				}
 				{
 					isActive === 1 &&
-					registRepoList &&
+					registRepoList[0].title &&
 					registRepoList.map((item: any, index:number) => (
 						<RegistCard 
 							key={index}
