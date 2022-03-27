@@ -19,7 +19,7 @@ function RepoPage( props: RepoPageProps ) {
 
 	const searchWord = useRecoilValue(searchWordState);
 	const setRepoPage = useSetRecoilState(repoPageState);
-	const [perPage, setPerPage] = useState(6);
+	const [perPage, setPerPage] = useState(5);
 	const [currentPage, setCurrentPage] = useState(1);
 	const { repoList, totalCount, repoLoading, repoListError } = useRepoList(searchWord, perPage);
 

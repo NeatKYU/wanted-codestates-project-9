@@ -119,8 +119,7 @@ export const Pagination = (props: PaginationProps) => {
 const Container = styled.div`
 	width: 100%;
 	gap: 4px;
-	position: fixed;
-	bottom: 2rem;
+	margin-top: 2rem;
 `
 
 const PagiButton = styled.div<{select: boolean}>`

@@ -28,4 +28,8 @@ export default App;
 const Container = styled.div`
   width: calc(100% - 15rem);
   
+  @media (max-width: 720px) {
+    width: 45rem;
+    align-items: flex-start !important;
+  }
 `

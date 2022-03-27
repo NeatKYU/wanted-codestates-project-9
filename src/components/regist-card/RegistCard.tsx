@@ -69,7 +69,7 @@ export const RegistCard = (props: RegistCardProps) => {
 
 const Container = styled.div<{selected: boolean}>`
 	width: 11.5rem;
-	height: 6.5rem;
+	height: 5.5rem;
 	border-radius: 10px;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 	position: relative;
@@ -84,10 +84,14 @@ const Container = styled.div<{selected: boolean}>`
 
 	@keyframes show {
 		from { height: 0; opacity: 0; }
-		to { height: 6.5rem; opacity: 1; }
+		to { height: 5.5rem; opacity: 1; }
 	}
 
 	animation: show 1s;
+
+	@media (max-width: 720px) {
+		width: 8.5rem;
+	}
 `
 
 const CloseWrapper = styled.div`

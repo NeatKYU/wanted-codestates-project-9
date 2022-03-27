@@ -12,7 +12,7 @@ export const repoPageState = atom({
 
 export const registRepoListState = atom({
 	key: 'registRepoList',
-	default: JSON.parse(window.sessionStorage.getItem('registRepoList') || '[{}]'),
+	default: JSON.parse(window.sessionStorage.getItem('registRepoList') || '[]'),
 })
 
 export const searchWordState = atom({

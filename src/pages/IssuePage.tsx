@@ -19,7 +19,7 @@ function IssuePage(props: IssuePageProps) {
 	const currentOwner = useRecoilValue(ownerState)
 	const [issuePage, setIssuePage] = useRecoilState(issuePageState);
 	const [currentPage, setCurrentPage] = useState(1);
-	const [perPage, setPerPage] = useState(6);
+	const [perPage, setPerPage] = useState(5);
 	const { 
 		issueList,
 		totalCount,

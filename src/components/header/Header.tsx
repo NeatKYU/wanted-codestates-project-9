@@ -46,7 +46,7 @@ export const Header = (props: HeaderProps) => {
 				}
 				{
 					isActive === 1 &&
-					registRepoList[0].title &&
+					registRepoList &&
 					registRepoList.map((item: any, index:number) => (
 						<RegistCard 
 							key={index}
@@ -57,6 +57,7 @@ export const Header = (props: HeaderProps) => {
 						/>
 					))
 				}
+			<EndBox/>
 			</Content>
 		</Container>
 	)
@@ -70,6 +71,10 @@ const Container = styled.div`
 	position: absolute;
 	top: 0;
 	right: 0;
+	
+	@media (max-width: 720px) {
+		position: initial;
+	}
 `
 const Content = styled.div`
 	width: 100%;
@@ -78,6 +83,7 @@ const Content = styled.div`
 	flex-direction: column;
 	gap: 1rem;
 	padding-top: 20px;
+
 `
 
 const Menu = styled.div<{active: boolean}>`
@@ -109,5 +115,10 @@ const Menu = styled.div<{active: boolean}>`
 const SizeBox = styled.div`
 	width: 100%;
 	height: 1rem;
+`
+const EndBox = styled.div`
+	width: 100%;
+	height: 1rem;
+	margin-top: auto;
 `
 
